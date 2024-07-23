@@ -16,11 +16,20 @@ def format_time(t):
 
 def sum_times(t1, t2):
     """Add two time objests and return the sum."""
-    sum = Time(0,0,0)
-    sum.hour = t1.hour + t2.hour
-    sum.minute = t1.minute + t2.minute
-    sum.second = t1.second + t2.second
-    return sum
+    sum_time = Time()
+
+    sum_time.second = t1.second + t2.second
+    extra_minutes = sum_time.second // 60
+    sum_time.second %= 60
+
+    sum_time.minute = t1.minute + t2.minute + extra_minutes
+    extra_hours = sum_time.minute // 60
+    sum_time.minute %= 60
+
+    sum_time.hour = t1.hour + t2.hour + extra_hours
+    sum_time.hour %= 24
+
+    return sum_time
 
 def valid_time(t):
     """check for the validity of the time object attributes:
